@@ -24,7 +24,11 @@
   command: chdir={{ src_dir }}/ruby-{{ ruby_ver }} make install
   when: ruby_installed|failed
 
+- name: install nokogiri
+  gem: name=nokogiri state=present executable={{ ruby_command_path }}/gem user_install=no version=1.6.1
+
 - name: gem install
   gem: name={{ item }} state=present executable={{ ruby_command_path }}/gem user_install=no
   with_items:
+    - rails
     - passenger
