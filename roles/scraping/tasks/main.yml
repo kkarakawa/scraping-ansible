@@ -1,6 +1,30 @@
 - name: Make Scraping Directory
-  file: dest=/var/www/html/scraping state=directory group=vagrant owner=vagrant
+  file: dest={{ scraping_path }} state=directory group=vagrant owner=vagrant
 
 - name: Checkout Scraping
   sudo: no
-  git: repo=git@github.com:kkarakawa/scraping.git dest=/var/www/html/scraping version=master accept_hostkey=yes
+  git: repo={{ scraping_repo }} dest={{ scraping_path }} version=master accept_hostkey=yes
+
+- name: bundle config nokogiri
+  sudo: no
+  command: chdir={{ scraping_path }} {{ ruby_command_path }}/bundle config build.nokogiri --use-system-libraries
+  changed_when: false
+
+- name: bundle install
+  sudo: no
+  command: chdir={{ scraping_path }} {{ ruby_command_path }}/bundle install --path vendor/bundle
+  changed_when: false
+
+- name: set database config
+  template: src=database.yml.j2 dest={{ scraping_path }}/config/database.yml backup=yes
+
+- name: create database
+  sudo: no
+  command: chdir={{ scraping_path }} {{ ruby_command_path }}/bundle exec rake db:create
+  changed_when: false
+
+- name: db migrate
+  sudo: no
+  command: chdir={{ scraping_path }} {{ ruby_command_path }}/bundle exec rake db:migrate
+  changed_when: false
+  notify: restart httpd

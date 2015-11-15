@@ -2,3 +2,5 @@ src_dir: /usr/local/src
 ruby_global_ver: 2.2
 ruby_ver: 2.2.3
 ruby_command_path: /usr/local/bin
+scraping_path: /var/www/html/scraping
+scraping_repo: https://github.com/kkarakawa/scraping.git

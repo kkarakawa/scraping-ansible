@@ -10,3 +10,8 @@
     - httpd-devel
     - apr-devel
     - apr-util-devel
+    - libxml2
+    - libxml2-devel
+    - libxslt
+    - libxslt-devel
+    - mysql-devel

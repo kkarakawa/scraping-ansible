@@ -5,5 +5,5 @@
   service: name=httpd state=started enabled=yes
 
 - name: set httpd.conf
-  template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+  template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf backup=yes
   notify: restart httpd

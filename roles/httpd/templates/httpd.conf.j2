@@ -1014,8 +1014,8 @@ BrowserMatch "^Dreamweaver-WebDAV-SCM1" redirect-carefully
 #    CustomLog logs/dummy-host.example.com-access_log common
 #</VirtualHost>
 <VirtualHost *:80>
-    DocumentRoot /var/www/html/scraping/public
-    RailsEnv production
+    DocumentRoot {{ scraping_path }}/public
+    RailsEnv development
     PassengerEnabled on
     ErrorLog logs/error_log
     CustomLog logs/access_log combined
