@@ -1,0 +1,9 @@
+- name: httpd install
+  yum: name=httpd state=latest
+
+- name: service httpd start
+  service: name=httpd state=started enabled=yes
+
+- name: set httpd.conf
+  template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf
+  notify: restart httpd

@@ -1,0 +1,6 @@
+- name: Make Scraping Directory
+  file: dest=/var/www/html/scraping state=directory group=vagrant owner=vagrant
+
+- name: Checkout Scraping
+  sudo: no
+  git: repo=git@github.com:kkarakawa/scraping.git dest=/var/www/html/scraping version=master accept_hostkey=yes

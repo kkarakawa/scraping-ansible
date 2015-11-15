@@ -1,0 +1,12 @@
+- name: yum install
+  yum: name={{ item }} state=installed
+  with_items:
+    - gcc
+    - gcc-c++
+    - zlib-devel
+    - openssl-devel
+    - git
+    - libcurl-devel
+    - httpd-devel
+    - apr-devel
+    - apr-util-devel

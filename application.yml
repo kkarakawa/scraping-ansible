@@ -1,0 +1,9 @@
+- hosts: application
+  remote_user: vagrant
+  sudo: yes
+  roles:
+    - common
+    - httpd
+    - ruby
+    - passenger
+    - scraping

@@ -1,0 +1,34 @@
+- name: check ruby is installed
+  command: which {{ ruby_command_path }}/ruby
+  ignore_errors: true
+  register: ruby_installed
+  changed_when: false
+
+- name: get ruby source package
+  get_url: url=https://cache.ruby-lang.org/pub/ruby/{{ ruby_global_ver }}/ruby-{{ ruby_ver }}.tar.gz dest={{ src_dir }}
+  when: ruby_installed|failed
+
+- name: expand ruby source package
+  command: chdir={{ src_dir }} tar xvf ruby-{{ ruby_ver }}.tar.gz
+  when: ruby_installed|failed
+
+- name: configure ruby
+  command: chdir={{ src_dir }}/ruby-{{ ruby_ver }} ./configure
+  when: ruby_installed|failed
+
+- name: make ruby
+  command: chdir={{ src_dir }}/ruby-{{ ruby_ver }} make
+  when: ruby_installed|failed
+
+- name: install ruby
+  command: chdir={{ src_dir }}/ruby-{{ ruby_ver }} make install
+  when: ruby_installed|failed
+
+- name: install nokogiri
+  gem: name=nokogiri state=present executable={{ ruby_command_path }}/gem user_install=no version=1.6.1
+
+- name: gem install
+  gem: name={{ item }} state=present executable={{ ruby_command_path }}/gem user_install=no
+  with_items:
+    - rails
+    - passenger

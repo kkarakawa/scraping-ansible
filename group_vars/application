@@ -1,0 +1,4 @@
+src_dir: /usr/local/src
+ruby_global_ver: 2.2
+ruby_ver: 2.2.3
+ruby_command_path: /usr/local/bin
