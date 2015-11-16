@@ -32,3 +32,4 @@
 - name: crawl videos
   sudo: no
   command: chdir={{ scraping_path }} {{ ruby_command_path }}/bundle exec rake crawl_ranking:create
+  changed_when: false
