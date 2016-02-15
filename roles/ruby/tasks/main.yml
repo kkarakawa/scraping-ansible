@@ -28,7 +28,7 @@
   gem: name=nokogiri state=present executable={{ ruby_command_path }}/gem user_install=no version=1.6.1
 
 - name: gem install
-  gem: name={{ item }} state=present executable={{ ruby_command_path }}/gem user_install=no
+  gem: name={{ item.name }} version={{ item.version }} state=present executable={{ ruby_command_path }}/gem user_install=no
   with_items:
-    - rails
-    - passenger
+    - { name: rails, version: 4.2.5.1 }
+    - { name: passenger, version: 5.0.24 }
